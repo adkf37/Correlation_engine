@@ -1,0 +1,17 @@
+# Scoring thresholds and weights for the Discovery Scanner.
+# Each criterion produces a 0-1 score; the composite is a weighted sum.
+# Weights must sum to 1.0.
+
+thresholds:
+  correlation: 0.7            # |r| above this triggers high_correlation
+  zscore: 2.0                 # |rolling z-score| above this triggers regime_change
+  granger_p: 0.05             # p-value below this triggers granger_causality
+  lag_correlation: 0.6        # |r at optimal lag| above this triggers anomalous_lag
+
+weights:
+  high_correlation: 0.25
+  newly_emerging: 0.15
+  regime_change: 0.20
+  granger_causality: 0.20
+  anomalous_lag: 0.10
+  rolling_divergence: 0.10

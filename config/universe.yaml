@@ -1,0 +1,463 @@
+# ─────────────────────────────────────────────────
+# Correlation Discovery Engine — Data Universe
+# ─────────────────────────────────────────────────
+#
+# Each entry has:
+#   id        – the series identifier (FRED code or Yahoo ticker)
+#   name      – human-readable label
+#   category  – grouping for filters / display
+#   source    – "fred" or "yahoo"
+#   frequency – native frequency hint (D=daily, M=monthly, Q=quarterly)
+#
+# The Watchlist class reads this file and fetches all series,
+# then aligns everything to monthly frequency for scanning.
+# ─────────────────────────────────────────────────
+
+fred_series:
+
+  # ── GDP & Output ──────────────────────────────
+  - id: GDP
+    name: Gross Domestic Product
+    category: output
+    frequency: Q
+
+  - id: GDPC1
+    name: Real GDP
+    category: output
+    frequency: Q
+
+  - id: INDPRO
+    name: Industrial Production Index
+    category: output
+    frequency: M
+
+  - id: DGORDER
+    name: Durable Goods Orders
+    category: output
+    frequency: M
+
+  - id: RSAFS
+    name: Retail Sales
+    category: output
+    frequency: M
+
+  # ── Inflation ─────────────────────────────────
+  - id: CPIAUCSL
+    name: CPI All Urban Consumers
+    category: inflation
+    frequency: M
+
+  - id: CPILFESL
+    name: Core CPI (Less Food & Energy)
+    category: inflation
+    frequency: M
+
+  - id: PCEPI
+    name: PCE Price Index
+    category: inflation
+    frequency: M
+
+  - id: PCEPILFE
+    name: Core PCE Price Index
+    category: inflation
+    frequency: M
+
+  - id: T5YIE
+    name: 5-Year Breakeven Inflation
+    category: inflation
+    frequency: D
+
+  - id: T10YIE
+    name: 10-Year Breakeven Inflation
+    category: inflation
+    frequency: D
+
+  - id: PPIFIS
+    name: PPI Final Demand
+    category: inflation
+    frequency: M
+
+  - id: MICH
+    name: Michigan Inflation Expectations
+    category: inflation
+    frequency: M
+
+  # ── Interest Rates ────────────────────────────
+  - id: FEDFUNDS
+    name: Federal Funds Rate
+    category: rates
+    frequency: M
+
+  - id: DFF
+    name: Fed Funds Effective Daily
+    category: rates
+    frequency: D
+
+  - id: DGS1
+    name: 1-Year Treasury Yield
+    category: rates
+    frequency: D
+
+  - id: DGS2
+    name: 2-Year Treasury Yield
+    category: rates
+    frequency: D
+
+  - id: DGS5
+    name: 5-Year Treasury Yield
+    category: rates
+    frequency: D
+
+  - id: DGS10
+    name: 10-Year Treasury Yield
+    category: rates
+    frequency: D
+
+  - id: DGS30
+    name: 30-Year Treasury Yield
+    category: rates
+    frequency: D
+
+  - id: T10Y2Y
+    name: 10Y-2Y Treasury Spread
+    category: rates
+    frequency: D
+
+  - id: T10Y3M
+    name: 10Y-3M Treasury Spread
+    category: rates
+    frequency: D
+
+  - id: MORTGAGE30US
+    name: 30-Year Fixed Mortgage Rate
+    category: rates
+    frequency: W
+
+  # ── Employment ────────────────────────────────
+  - id: UNRATE
+    name: Unemployment Rate
+    category: employment
+    frequency: M
+
+  - id: PAYEMS
+    name: Total Nonfarm Payrolls
+    category: employment
+    frequency: M
+
+  - id: ICSA
+    name: Initial Jobless Claims
+    category: employment
+    frequency: W
+
+  - id: CCSA
+    name: Continued Jobless Claims
+    category: employment
+    frequency: W
+
+  - id: AWHMAN
+    name: Avg Weekly Hours Manufacturing
+    category: employment
+    frequency: M
+
+  - id: CES0500000003
+    name: Avg Hourly Earnings Private
+    category: employment
+    frequency: M
+
+  - id: JTSJOL
+    name: Job Openings (JOLTS)
+    category: employment
+    frequency: M
+
+  # ── Credit Spreads ────────────────────────────
+  - id: BAMLH0A0HYM2
+    name: HY OAS Spread
+    category: credit
+    frequency: D
+
+  - id: BAMLC0A0CM
+    name: IG Corporate OAS Spread
+    category: credit
+    frequency: D
+
+  - id: BAMLH0A0HYM2EY
+    name: HY Effective Yield
+    category: credit
+    frequency: D
+
+  - id: TEDRATE
+    name: TED Spread
+    category: credit
+    frequency: D
+
+  # ── Housing ───────────────────────────────────
+  - id: CSUSHPISA
+    name: Case-Shiller Home Price Index
+    category: housing
+    frequency: M
+
+  - id: HOUST
+    name: Housing Starts
+    category: housing
+    frequency: M
+
+  - id: PERMIT
+    name: Building Permits
+    category: housing
+    frequency: M
+
+  - id: EXHOSLUSM495S
+    name: Existing Home Sales
+    category: housing
+    frequency: M
+
+  - id: NHSUSSPT
+    name: New Home Sales
+    category: housing
+    frequency: M
+
+  # ── Money & Liquidity ─────────────────────────
+  - id: M2SL
+    name: M2 Money Stock
+    category: money
+    frequency: M
+
+  - id: BOGMBASE
+    name: Monetary Base
+    category: money
+    frequency: M
+
+  - id: TOTRESNS
+    name: Total Reserves
+    category: money
+    frequency: M
+
+  - id: WALCL
+    name: Fed Balance Sheet Total Assets
+    category: money
+    frequency: W
+
+  # ── Financial Conditions ──────────────────────
+  - id: NFCI
+    name: Chicago Fed National Financial Conditions
+    category: financial_conditions
+    frequency: W
+
+  - id: STLFSI2
+    name: St. Louis Fed Financial Stress
+    category: financial_conditions
+    frequency: W
+
+  - id: DRTSCILM
+    name: Bank Lending Standards C&I Loans
+    category: financial_conditions
+    frequency: Q
+
+  - id: VIXCLS
+    name: CBOE Volatility Index (FRED)
+    category: financial_conditions
+    frequency: D
+
+  # ── Commodities ───────────────────────────────
+  - id: DCOILWTICO
+    name: WTI Crude Oil
+    category: commodities
+    frequency: D
+
+  - id: DCOILBRENTEU
+    name: Brent Crude Oil
+    category: commodities
+    frequency: D
+
+  - id: GOLDAMGBD228NLBM
+    name: Gold Price London Fix
+    category: commodities
+    frequency: D
+
+  - id: PCOPPUSDM
+    name: Copper Price
+    category: commodities
+    frequency: M
+
+  - id: PNRGINDEXM
+    name: Global Energy Price Index
+    category: commodities
+    frequency: M
+
+  # ── FX & Trade ────────────────────────────────
+  - id: DTWEXBGS
+    name: Trade-Weighted US Dollar Index (Broad)
+    category: fx
+    frequency: D
+
+  - id: DEXJPUS
+    name: USD/JPY Exchange Rate
+    category: fx
+    frequency: D
+
+  - id: DEXUSEU
+    name: USD/EUR Exchange Rate
+    category: fx
+    frequency: D
+
+  - id: BOPGSTB
+    name: Trade Balance
+    category: fx
+    frequency: M
+
+  # ── Consumer & Sentiment ──────────────────────
+  - id: UMCSENT
+    name: Michigan Consumer Sentiment
+    category: sentiment
+    frequency: M
+
+  - id: CSCICP03USM665S
+    name: Consumer Confidence (OECD)
+    category: sentiment
+    frequency: M
+
+  - id: PSAVERT
+    name: Personal Savings Rate
+    category: sentiment
+    frequency: M
+
+  - id: PCE
+    name: Personal Consumption Expenditures
+    category: sentiment
+    frequency: M
+
+  # ── Banking & Lending ─────────────────────────
+  - id: TOTLL
+    name: Total Loans & Leases Commercial Banks
+    category: banking
+    frequency: W
+
+  - id: DPSACBW027SBOG
+    name: Deposits All Commercial Banks
+    category: banking
+    frequency: W
+
+  # ── Government Fiscal ─────────────────────────
+  - id: FYFSD
+    name: Federal Surplus or Deficit
+    category: fiscal
+    frequency: Y
+
+  - id: GFDEBTN
+    name: Federal Debt Total Public
+    category: fiscal
+    frequency: Q
+
+
+yahoo_tickers:
+
+  # ── US Equities ───────────────────────────────
+  - id: SPY
+    name: S&P 500 ETF
+    category: us_equity
+    frequency: D
+
+  - id: QQQ
+    name: Nasdaq 100 ETF
+    category: us_equity
+    frequency: D
+
+  - id: IWM
+    name: Russell 2000 ETF
+    category: us_equity
+    frequency: D
+
+  - id: DIA
+    name: Dow Jones ETF
+    category: us_equity
+    frequency: D
+
+  # ── Sectors ───────────────────────────────────
+  - id: XLE
+    name: Energy Sector ETF
+    category: sector
+    frequency: D
+
+  - id: XLF
+    name: Financials Sector ETF
+    category: sector
+    frequency: D
+
+  - id: XLK
+    name: Technology Sector ETF
+    category: sector
+    frequency: D
+
+  - id: XLV
+    name: Healthcare Sector ETF
+    category: sector
+    frequency: D
+
+  # ── Fixed Income ──────────────────────────────
+  - id: TLT
+    name: 20+ Year Treasury ETF
+    category: fixed_income
+    frequency: D
+
+  - id: IEF
+    name: 7-10 Year Treasury ETF
+    category: fixed_income
+    frequency: D
+
+  - id: SHY
+    name: 1-3 Year Treasury ETF
+    category: fixed_income
+    frequency: D
+
+  - id: HYG
+    name: High Yield Corporate Bond ETF
+    category: fixed_income
+    frequency: D
+
+  - id: LQD
+    name: Investment Grade Corporate Bond ETF
+    category: fixed_income
+    frequency: D
+
+  # ── Alternatives & Commodities ────────────────
+  - id: GLD
+    name: Gold ETF
+    category: commodity_etf
+    frequency: D
+
+  - id: SLV
+    name: Silver ETF
+    category: commodity_etf
+    frequency: D
+
+  - id: GDX
+    name: Gold Miners ETF
+    category: commodity_etf
+    frequency: D
+
+  - id: VNQ
+    name: Real Estate ETF
+    category: real_estate
+    frequency: D
+
+  # ── International ─────────────────────────────
+  - id: EEM
+    name: Emerging Markets ETF
+    category: international
+    frequency: D
+
+  - id: EFA
+    name: Developed Markets ex-US ETF
+    category: international
+    frequency: D
+
+  # ── Dollar & Volatility ───────────────────────
+  - id: UUP
+    name: US Dollar Index ETF
+    category: fx_etf
+    frequency: D
+
+  - id: "^VIX"
+    name: CBOE Volatility Index
+    category: volatility
+    frequency: D

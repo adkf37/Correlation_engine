@@ -6,11 +6,11 @@ import os
 import time
 
 import pandas as pd
-from dotenv import load_dotenv
+from dotenv import find_dotenv, load_dotenv
 
 from correlation_engine.ingest.base import BaseLoader
 
-load_dotenv()
+load_dotenv(find_dotenv(usecwd=True))
 
 
 class FredLoader(BaseLoader):
